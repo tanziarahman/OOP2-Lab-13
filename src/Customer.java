@@ -85,25 +85,27 @@ public class Customer {
      * @param ID of the searching/required customer
      */
     public void searchUser(String ID) {
-        boolean isFound = false;
-        Customer customerWithTheID = customerCollection.get(0);
-        for (Customer c : customerCollection) {
-            if (ID.equals(c.getUserID())) {
-                System.out.printf("%-50sCustomer Found...!!!Here is the Full Record...!!!\n\n\n", " ");
-                displayHeader();
-                isFound = true;
-                customerWithTheID = c;
-                break;
-            }
-        }
-        if (isFound) {
-            System.out.println(customerWithTheID.toString(1));
+        Customer customer = findCustomerByID(ID); // Use the extracted method
+
+        if (customer != null) {
+            System.out.printf("%-50sCustomer Found...!!! Here is the Full Record...!!!\n\n\n", " ");
+            displayHeader();
+            System.out.println(customer.toString(1));
             System.out.printf(
                     "%10s+------------+------------+----------------------------------+---------+-----------------------------+-------------------------------------+-------------------------+\n",
                     "");
         } else {
             System.out.printf("%-50sNo Customer with the ID %s Found...!!!\n", " ", ID);
         }
+    }
+
+    private Customer findCustomerByID(String ID) {
+        for (Customer c : customerCollection) {
+            if (ID.equals(c.getUserID())) {
+                return c;
+            }
+        }
+        return null;
     }
 
     /**
