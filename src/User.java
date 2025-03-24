@@ -409,4 +409,15 @@ public class User {
         int age = read.nextInt();
         return new Customer(name, email, password, phone, address, age);
     }
+
+    public static boolean isUniqueData(String emailID) {
+        boolean isUnique = false;
+        for (Customer c : customersCollection) {
+            if (emailID.equals(c.getEmail())) {
+                isUnique = true;
+                break;
+            }
+        }
+        return isUnique;
+    }
 }
