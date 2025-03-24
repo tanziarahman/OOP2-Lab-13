@@ -33,7 +33,7 @@ public class User {
         f1.flightScheduler();
         Scanner read = new Scanner(System.in);
 
-       
+
         System.out.println(
                 "\n\t\t\t\t\t+++++++++++++ Welcome to BAV AirLines +++++++++++++\n\nTo Further Proceed, Please enter a value.");
         System.out.println(
@@ -60,7 +60,7 @@ public class User {
                 /* Default username and password.... */
                 adminUserNameAndPassword[0][0] = "root";
                 adminUserNameAndPassword[0][1] = "root";
-                
+
                 System.out.print("\nEnter the UserName to login to the Management System :     ");
                 String username = read1.nextLine();
                 System.out.print("Enter the Password to login to the Management System :    ");
@@ -113,7 +113,7 @@ public class User {
                              * If 2 is entered by the privileged user, then call the search method of the
                              * Customer class
                              */
-                            
+
                             c1.displayCustomersData(false);
                             System.out.print("Enter the CustomerID to Search :\t");
                             String customerID = read1.nextLine();
@@ -125,12 +125,13 @@ public class User {
                              * Class with required
                              * arguments.....
                              */
-                            
+
                             c1.displayCustomersData(false);
                             System.out.print("Enter the CustomerID to Update its Data :\t");
                             String customerID = read1.nextLine();
                             if (customersCollection.size() > 0) {
-                                c1.editUserInfo(customerID);
+                                List<String> details = readCustomerInfo();
+                                c1.editUserInfo(customerID,details);
                             } else {
                                 System.out.printf("%-50sNo Customer with the ID %s Found...!!!\n", " ", customerID);
                             }
@@ -255,8 +256,8 @@ public class User {
                             }
                             bookingAndReserving.bookFlight(flightToBeBooked, numOfTickets, result[1]);
                         } else if (desiredChoice == 2) {
-
-                            c1.editUserInfo(result[1]);
+                            List<String> details = readCustomerInfo();
+                            c1.editUserInfo(result[1],details);
                         } else if (desiredChoice == 3) {
                             System.out.print(
                                     "Are you sure to delete your account...It's an irreversible action...Enter Y/y to confirm...");
@@ -294,8 +295,8 @@ public class User {
                             "");
                 }
             } else if (desiredOption == 4) {
-
-                c1.addNewCustomer();
+                Customer customer = readCustomerData();
+                c1.addNewCustomer(customer);
             } else if (desiredOption == 5) {
                 manualInstructions();
             }
@@ -384,7 +385,6 @@ public class User {
     public static List<Customer> getCustomersCollection() {
         return customersCollection;
     }
-
     public static Customer readCustomerData()
     {
         System.out.printf("\n\n\n%60s ++++++++++++++ Welcome to the Customer Registration Portal ++++++++++++++", "");
@@ -409,7 +409,6 @@ public class User {
         int age = read.nextInt();
         return new Customer(name, email, password, phone, address, age);
     }
-
     public static boolean isUniqueData(String emailID) {
         boolean isUnique = false;
         for (Customer c : customersCollection) {
@@ -420,7 +419,6 @@ public class User {
         }
         return isUnique;
     }
-
     public static List<String> readCustomerInfo() {
         Scanner read = new Scanner(System.in);
         List<String> details = new ArrayList<>();
