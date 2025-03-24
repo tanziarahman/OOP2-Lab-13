@@ -151,18 +151,11 @@ public class Customer {
     }
 
     public void deleteUser(String ID) {
-        boolean isFound = false;
-        Iterator<Customer> iterator = customerCollection.iterator();
-        while (iterator.hasNext()) {
-            Customer customer = iterator.next();
-            if (ID.equals(customer.getUserID())) {
-                isFound = true;
-                break;
-            }
-        }
-        if (isFound) {
-            iterator.remove();
-            System.out.printf("\n%-50sPrinting all  Customer's Data after deleting Customer with the ID %s.....!!!!\n",
+        Customer customer = findCustomerByID(ID);
+
+        if (customer != null) {
+            customerCollection.remove(customer);
+            System.out.printf("\n%-50sPrinting all Customer's Data after deleting Customer with the ID %s.....!!!!\n",
                     "", ID);
             displayCustomersData(false);
         } else {
