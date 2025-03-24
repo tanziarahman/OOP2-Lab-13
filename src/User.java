@@ -420,4 +420,27 @@ public class User {
         }
         return isUnique;
     }
+
+    public static List<String> readCustomerInfo() {
+        Scanner read = new Scanner(System.in);
+        List<String> details = new ArrayList<>();
+
+        System.out.print("\nEnter the new name of the Passenger:\t");
+        details.add(read.nextLine());
+
+        System.out.print("Enter the new email address:\t");
+        details.add(read.nextLine());
+
+        System.out.print("Enter the new Phone number:\t");
+        details.add(read.nextLine());
+
+        System.out.print("Enter the new address:\t");
+        details.add(read.nextLine());
+
+        System.out.print("Enter the new age:\t");
+        details.add(String.valueOf(read.nextInt()));
+
+        read.nextLine(); // Consume leftover newline
+        return details;
+    }
 }
