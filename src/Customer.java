@@ -124,28 +124,17 @@ public class Customer {
         return isUnique;
     }
 
-    public void editUserInfo(String ID) {
-        boolean isFound = false;
-        Scanner read = new Scanner(System.in);
-        for (Customer c : customerCollection) {
-            if (ID.equals(c.getUserID())) {
-                isFound = true;
-                System.out.print("\nEnter the new name of the Passenger:\t");
-                String name = read.nextLine();
-                c.setName(name);
-                System.out.print("Enter the new email address of Passenger " + name + ":\t");
-                c.setEmail(read.nextLine());
-                System.out.print("Enter the new Phone number of Passenger " + name + ":\t");
-                c.setPhone(read.nextLine());
-                System.out.print("Enter the new address of Passenger " + name + ":\t");
-                c.setAddress(read.nextLine());
-                System.out.print("Enter the new age of Passenger " + name + ":\t");
-                c.setAge(read.nextInt());
-                displayCustomersData(false);
-                break;
-            }
-        }
-        if (!isFound) {
+    public void editUserInfo(String ID,List<String> details) {
+        Customer customer = findCustomerByID(ID);
+
+        if (customer != null) {
+            customer.setName(details.get(0));
+            customer.setEmail(details.get(1));
+            customer.setPhone(details.get(2));
+            customer.setAddress(details.get(3));
+            customer.setAge(Integer.parseInt(details.get(4)));
+            displayCustomersData(false);
+        } else {
             System.out.printf("%-50sNo Customer with the ID %s Found...!!!\n", " ", ID);
         }
     }
